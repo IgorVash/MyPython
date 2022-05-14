@@ -79,48 +79,54 @@ def getGuess(alreadyGuessed):
 def playAgain():
     # Эта функция возвращает True, если игрок хочет сыграть заново, в противном False
     print('Хотите сыграть еще? (да или нет).')
-    return input().lower().startswith('д')
+    while True:
+        otvet = input().lower()
+        if (otvet == 'да') or (otvet == 'д') or (otvet == 'yes') or (otvet == 'y'):
+            # ответ да, запускаем игру по новой
+            return True
+        elif (otvet == 'нет') or (otvet == 'н') or (otvet == 'no') or (otvet == 'n'):
+            # игрок отказался от игры, завершаем
+            return False
+        else:
+            print('''Я вас не понял! 
+Введите ответ еще раз.
+Введите "да" для продолжения и "нет" для завершения игры''')
 
-
-print('В И С Е Л И Ц А')
-missedLetters = ''
-correctLetters = ''
-secretWord = getRandomWord(words)
-gameIsDone = False
+errorB = ''
+yesB = ''
+gameOver = False
+sicretS = getRandomWord(words)
 
 while True:
-    displayBoard(missedLetters, correctLetters, secretWord)
+    displayBoard(errorB,yesB,sicretS)
 
-    # Позволяет игроку ввести букву
-    guess = getGuess(missedLetters + correctLetters)
+    bukva = getGuess(errorB+yesB)
 
-    if guess in secretWord:
-        correctLetters = correctLetters + guess
-
+    if bukva in sicretS:
+        yesB = yesB + bukva
+ 
         # Проверяет, выиграл ли игрок
-        foundAllLetters = True
-        for i in range(len(secretWord)):
-            if secretWord[i] not in correctLetters:
-                foundAllLetters = False
+        ssYes = True
+        for i in range(len(sicretS)):
+            if sicretS[i] not in yesB:
+                ssYes = False
                 break
-        if foundAllLetters:
-            print('ДА! Секретное слово - "'+secretWord+'"! Вы угадали!')
-            gameIsDone = True
+        if ssYes:
+            print('ДА! Секретное слово - "'+sicretS+'"! Вы угадали!')
+            gameOver = True
     else:
-        missedLetters = missedLetters + guess
-
-        # Проверяет, превысил ли игрок лимит попыток и проигралл
-        if len(missedLetters) == len(HANGMAN_PICS) - 1:
-            displayBoard(missedLetters, correctLetters, secretWord)
-            print('Вы исчерпали все попытки!\nНеугадано букв:'+str(len(missedLetters))+'и угадоно букв:'+str(len(correctLetters))+'. Было загадано слово "'+secretWord+'".')
-            gameIsDone = True
+        errorB = errorB + bukva
+        if len(errorB) == len(HANGMAN_PICS) - 1:
+            displayBoard(errorB,yesB,sicretS)
+            print('Вы исчерпали все попытки!\nНеугадано букв:'+str(len(errorB))+'и угадоно букв:'+str(len(yesB))+'. Было загадано слово "'+sicretS+'".')
+            gameOver = True
 
     # Запрашивает, хочет ли игрок сыграть заново (только если игра завершена).
-    if gameIsDone:
+    if gameOver:
         if playAgain():
-            missedLetters = ''
-            correctLetters = ''
-            gameIsDone = False
-            secretWord = getRandomWord(words)
+            errorB = ''
+            yesB = ''
+            gameOver = False
+            sicretS = getRandomWord(words)
         else:
             break
