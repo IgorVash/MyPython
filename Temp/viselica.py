@@ -124,7 +124,7 @@ while True:
             gameOver = True
 
     if gameOver:
-        if playAgain:
+        if playAgain():
             errorB = ''
             yesB = ''
             sicretS = getRandomWord(words)
