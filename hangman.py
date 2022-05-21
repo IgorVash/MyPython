@@ -92,6 +92,42 @@ def playAgain():
 Введите ответ еще раз.
 Введите "да" для продолжения и "нет" для завершения игры''')
 
+def vyborS():
+    print('Выберите уровень сложности.')
+    print('Введите "Л" для легкого уровня,')
+    print('"С" для среднего и')
+    print('"Т" для тяжелого.')
+
+    while True:
+        us = input().upper()
+        print(us)
+        if len(us) != 1:
+            print('Введите только одну букву.')
+        elif us not in 'ЛСТ':
+            print('Введите "Л" для легкого уровня,')
+            print('"С" для среднего и')
+            print('"Т" для тяжелого.')
+        else:
+            print('123')
+            print(us)
+            return us
+#            break
+
+
+def delV(urovenS):
+    urovenS = vyborS()
+    if urovenS == 'С':
+        del HANGMAN_PICS[10]
+        del HANGMAN_PICS[9]
+    elif urovenS == 'Т':
+        del HANGMAN_PICS[10]
+        del HANGMAN_PICS[9]
+        del HANGMAN_PICS[8]
+        del HANGMAN_PICS[7]
+
+uroven = vyborS()
+delV(uroven)
+
 errorB = ''
 yesB = ''
 gameOver = False
@@ -118,12 +154,14 @@ while True:
         errorB = errorB + bukva
         if len(errorB) == len(HANGMAN_PICS) - 1:
             displayBoard(errorB,yesB,sicretS)
-            print('Вы исчерпали все попытки!\nНеугадано букв:'+str(len(errorB))+'и угадоно букв:'+str(len(yesB))+'. Было загадано слово "'+sicretS+'".')
+            print('Вы исчерпали все попытки!\nНеугадано букв:'+str(len(errorB))+'\nугадано букв:'+str(len(yesB))+'.\nБыло загадано слово "'+sicretS+'".')
             gameOver = True
 
     # Запрашивает, хочет ли игрок сыграть заново (только если игра завершена).
     if gameOver:
         if playAgain():
+            delV(vyborS())
+
             errorB = ''
             yesB = ''
             gameOver = False
