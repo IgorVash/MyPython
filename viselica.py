@@ -179,6 +179,9 @@ while True:
     # Запрашивает, хочет ли игрок сыграть заново (только если игра завершена).
     if gameOver:
         if playAgain():
+            bS = vyborSl()
+            delVis(bS)
+
             errorB = ''
             yesB = ''
             gameOver = False
