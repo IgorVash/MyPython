@@ -1,6 +1,6 @@
-from ast import keyword
 import random
-HANGMAN_PICS = ['''
+def sozdanieV():
+    HANGMAN_PICS = ['''
   +---+
       |
       |
@@ -56,6 +56,7 @@ HANGMAN_PICS = ['''
 [/|\] |
  / \  |
      ===''']
+    return HANGMAN_PICS 
 
 words = {'цвета':'красный оранжевый желтый зеленый голубой синий фиолетовый белый черный коричневый'.split(),
 'фигуры':'треугольник квадрат прямоугольник круг овал пятиугольник трапеция ромб шестиугольник звезда'.split(),
@@ -69,8 +70,8 @@ def getRandomWord(wordList):
     wordIndex = random.randint(0, len(wordList[wordKey])-1)
     return [wordList[wordKey][wordIndex],wordKey]
 
-def displayBoard(missedLetters, correctLetters, secretWord):
-    print(HANGMAN_PICS[len(missedLetters)])
+def displayBoard(missedLetters, correctLetters, secretWord,hang):
+    print(hang[len(missedLetters)])
     print()
 
     print('Ошибочные буквы:', end=' ')
@@ -133,27 +134,37 @@ def vyborSl():
         else:
             return otv
 
-def delVis(vybS):
+def delVis(vybS,hangP):
     if vybS == 'С':
-        del HANGMAN_PICS[10]
-        del HANGMAN_PICS[9]
+        del hangP[10]
+        del hangP[9]
     elif vybS == 'Т':
-        del HANGMAN_PICS[10]
-        del HANGMAN_PICS[9]
-        del HANGMAN_PICS[8]
-        del HANGMAN_PICS[7]
+        del hangP[10]
+        del hangP[9]
+        del hangP[8]
+        del hangP[7]
 
-bS = vyborSl()
-delVis(bS)
+#hm = HANGMAN_PICS
 
+#bS = vyborSl()
+#delVis(bS,hm)
+delV = True
 errorB = ''
 yesB = ''
 gameOver = False
 sicretS,keyWords = getRandomWord(words)
 
 while True:
-    print('Категория слова: '+keyWords)
-    displayBoard(errorB,yesB,sicretS)
+    if delV:
+        hm = sozdanieV()
+        
+        bS = vyborSl()
+        delVis(bS,hm)
+        delV = False
+
+    if bS == 'Л':
+        print('Категория слова: '+keyWords)
+    displayBoard(errorB,yesB,sicretS,hm)
 
     bukva = getGuess(errorB+yesB)
 
@@ -171,20 +182,18 @@ while True:
             gameOver = True
     else:
         errorB = errorB + bukva
-        if len(errorB) == len(HANGMAN_PICS) - 1:
-            displayBoard(errorB,yesB,sicretS)
+        if len(errorB) == len(hm) - 1:
+            displayBoard(errorB,yesB,sicretS,hm)
             print('Вы исчерпали все попытки!\nНеугадано букв:'+str(len(errorB))+'\nугадано букв:'+str(len(yesB))+'.\nБыло загадано слово "'+sicretS+'".')
             gameOver = True
 
     # Запрашивает, хочет ли игрок сыграть заново (только если игра завершена).
     if gameOver:
         if playAgain():
-            bS = vyborSl()
-            delVis(bS)
-
             errorB = ''
             yesB = ''
             gameOver = False
             sicretS,keyWords = getRandomWord(words)
+            delV = True
         else:
             break
