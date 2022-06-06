@@ -28,7 +28,7 @@ def sozdanieV():
      ===''','''
   +---+
   0   |
- /|\  |
+ /|\  |True
  /    |
      ===''','''
   +---+
@@ -63,9 +63,16 @@ words = {'цвета':'красный оранжевый желтый зелен
 'фрукты':'апельсин ананас абрикос банан виноград груша грейпфрукт яблоко лимон лайм мандарин персик манго нектарин'.split(),
 'животные':'аист акула бабуин баран барсук бобр бык верблюд волк воробей ворон выдра голубь гусь жаба зебра змея индюк кит кобра коза козел койот корова кошка кролик крыса курица лама ласка лебедь лев лиса лосось лось лягушка медведь моллюск моль мул муравей мышь норка носорог обезьяна овца окунь олень орел осел панда паук питон попугай пума семга скунс собака сова тигр тритон тюлень утка форель хорек черепаха ястреб ящерица'.split()}
 
-def getRandomWord(wordList):
+def getRandomWord(wordList,uS):
     # Эта функция возвращает случайную строку из переданного списка.
-    wordKey = random.choice(list(wordList.keys()))
+    if uS == 'Л':
+        for i in range(len(list(wordList.keys()))):
+            print('Введите '+str(i)+' для '+list(wordList.keys())[i])
+        vybK = input()
+        vybK = int(vybK)
+        wordKey = list(wordList.keys())[vybK]
+    else:
+        wordKey = random.choice(list(wordList.keys()))
 
     wordIndex = random.randint(0, len(wordList[wordKey])-1)
     return [wordList[wordKey][wordIndex],wordKey]
@@ -144,15 +151,11 @@ def delVis(vybS,hangP):
         del hangP[8]
         del hangP[7]
 
-#hm = HANGMAN_PICS
-
-#bS = vyborSl()
-#delVis(bS,hm)
 delV = True
 errorB = ''
 yesB = ''
 gameOver = False
-sicretS,keyWords = getRandomWord(words)
+
 
 while True:
     if delV:
@@ -160,6 +163,7 @@ while True:
         
         bS = vyborSl()
         delVis(bS,hm)
+        sicretS,keyWords = getRandomWord(words,bS)
         delV = False
 
     if bS == 'Л':
@@ -193,7 +197,6 @@ while True:
             errorB = ''
             yesB = ''
             gameOver = False
-            sicretS,keyWords = getRandomWord(words)
             delV = True
         else:
             break
