@@ -151,6 +151,17 @@ def delVis(vybS,hangP):
         del hangP[8]
         del hangP[7]
 
+def autor():
+    print('************************************')
+    print('   .___.       В И С Е Л И Ц А')   
+    print("___('v')___    Автор: Игорь")
+    print('`"-\._./-"     Верия 1.0')
+    print('    ^ ^')        
+    print('************************************')
+
+
+autor()
+
 delV = True
 errorB = ''
 yesB = ''
@@ -199,4 +210,5 @@ while True:
             gameOver = False
             delV = True
         else:
+            autor()
             break
