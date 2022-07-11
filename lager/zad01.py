@@ -16,3 +16,15 @@ if (a != 0) and (b%a != 0):
 if (a != 0) and (b%a == 0):
     c = int(-b/a)
     print(c)
+
+#if a == 0:
+#    if b == 0:
+#        print('INF')
+#    elif b !=0:
+#        print('NO')
+#else:
+#    if b%a != 0:
+#        print('NO')
+#    else:
+#        x = -b/a
+#        print(x)
