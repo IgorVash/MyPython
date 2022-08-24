@@ -20,7 +20,9 @@ def zastavka():
     print()
 
 def nastroyki():
+    many = input('Введите сколько денег будет у игрока:   ')
     while True:
+<<<<<<< HEAD
         many = input('       Введите сколько денег будет у игрока:   ')
         if not many.isdigit():
             # игрок ввел не только цифры
@@ -132,12 +134,78 @@ def startGame():
             os.system('cls' if os.name == 'nt' else 'clear')
 
     return victory
+=======
+        if not many.isdigit():
+            # игрок ввел не только цифры
+            print('Вы должны вводить только цифры.')
+            many = input()
+        else:
+            many = int(many)
+            break
+            
+    minSt = input('Введите размер минимальной ставки:   ')
+    while True:
+        if not minSt.isdigit():
+            print('Вы должны вводить только цифры.')
+            minSt = input()
+        else:
+            minSt = int(minSt)
+            if minSt > many:
+                print('Минимальная ставка не может быть больше, чем денег в наличии.')
+                minSt = input()
+            else:
+                break
+
+    return [many,minSt]
+
+def intro():
+    print(''' 
+      Вы решили испытать свое счастье и поехали на ипподром,
+    чтобы сделать ставку на одну из лошадей.
+      Изучив программу скачек и участвующих в забегах лошадей,
+    вы сделали свой выбор и подошли к кассе.
+      В выбранном вами забеге участвует четыре лошади.
+      ''')
+
+def stavka(many,minSt):
+    while True:
+        vHorse = input('Введите число от 1 до 4, чтобы выбрать номер лошади:   ')
+        if not vHorse.isdigit():
+            print()
+            print('Вы должны вводить только цифры')
+        elif (vHorse in '1234') and (len(vHorse)==1):
+            vHorse = int(vHorse)
+            print()
+            break
+        else:
+            print()
+            print('У нас участвует четыре лошади. Вы должны ввести цифры от 1 до 4.')
+
+    while True:
+        stav = input('Введите размер ставки, которую вы хотите сделать:   ')
+        if not stav.isdigit():
+            print()
+            print('Вы должны вводить только цифры')
+        else:
+            stav = int(stav)
+            if stav < minSt:
+                print()
+                print('Ставка не может быть меньше минимальной.')
+            elif stav > many:
+                print()
+                print('Вы не можете делать ставку больше, чем у вас есть денег.')
+            else:
+                break
+
+    return [vHorse,stav]
+>>>>>>> 8a274853ce96eb33e8871f7718a870d7f532657d
 
 # ********************************************************
 # ОСНОВНОЕ ТЕЛО ПРОГРАММЫ
 # ********************************************************
 
 zastavka()
+<<<<<<< HEAD
 intro1()
 myMany, minStavka = nastroyki()
 while True:
@@ -173,3 +241,12 @@ while True:
        Отлично!
        Вы покидаете ипподром и у вас в наличии '''+str(myMany)+'.')
             break
+=======
+manyGamer,minStavka = nastroyki()
+intro()
+horse,stavkaGamer = stavka(manyGamer,minStavka)
+
+print()
+print(horse)
+print(stavkaGamer)
+>>>>>>> 8a274853ce96eb33e8871f7718a870d7f532657d
