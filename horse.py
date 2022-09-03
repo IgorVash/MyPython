@@ -34,6 +34,8 @@ def nastroyki():
         minSt = input('       Введите размер минимальной ставки:   ')
         if not minSt.isdigit():
             print('       Вы должны вводить только цифры.')
+        elif int(minSt)>many:
+            print('       Минимальная ставка не может быть больше чем денег в наличии.')    
         else:
             minSt = int(minSt)
             break
