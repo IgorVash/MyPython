@@ -42,10 +42,16 @@ def whoGoesFirst():
     else:
         return 'Человек'
 
-
+def makeMove(board,letter,move):
+    board[move] = letter
 
 # ********************************************************
 # ОСНОВНОЕ ТЕЛО ПРОГРАММЫ
 # ********************************************************
 
-print(whoGoesFirst())
+board = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+displayBoard(board)
+yach = input('Введите число от 1 до 9')
+yach = int(yach)
+makeMove(board,'X',yach)
+displayBoard(board)

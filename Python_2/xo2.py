@@ -24,9 +24,9 @@ def inputPlayerLetter():
     # предложение игроку ввести букву, которую он выбирает
     letter = ''
     while not (letter=='X' or letter=='O'):
-        print('''    Выберите "Х" или "О".
-    Для выбора введите соответственно "Х" или "О" 
-    на английской раскладке.''')
+        print('''       Выберите "Х" или "О".
+        Для выбора введите соответственно "Х" или "О" 
+        на английской раскладке.''')
 
         letter = input().upper()
 
@@ -35,7 +35,17 @@ def inputPlayerLetter():
     else:
         return ['O','X']
 
-
+def funk():
+    while True:
+        print('Введите Х или О на англ. раскладке.')
+        letter = input().upper()
+        if letter == 'X' or letter == 'O':
+            break
+    
+    if letter == 'X':
+        return ['X','O']
+    else:
+        return ['O','X']
 
 # ********************************************************
 # ОСНОВНОЕ ТЕЛО ПРОГРАММЫ

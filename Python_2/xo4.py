@@ -68,4 +68,12 @@ def isWinner(bo,le):
 # ОСНОВНОЕ ТЕЛО ПРОГРАММЫ
 # ********************************************************
 
-print(whoGoesFirst())
+#board = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
+board = [' ']*10
+displayBoard(board)
+print(isWinner(board,'X'))
+board[7] = 'X'
+board[4] = 'X'
+board[1] = 'X'
+displayBoard(board)
+print(isWinner(board,'X'))
