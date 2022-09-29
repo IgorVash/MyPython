@@ -102,21 +102,160 @@ def chooseRandomMoveFromList(board,movesList):
 
 # Начало создания ИИ
 
+def getComputerMove(board,computerLetter):
+    # Учитывая заполнение игрого поля и символ компьютера,
+    # определяем допустимы ход и возвращает его
+
+    # Сначала определим сивол компьютера и человека
+    if computerLetter == 'X':
+        playerLetter = 'O'
+    else:
+        playerLetter = 'X'
+
+    # дальше идет алгоритм для ИИ "Крестиков-Ноликов"
+
+    # Сначала проверяем - победит ли ИИ, сделав следующий ход
+    for i in range(1,10):
+        # делаем копию игрового поля
+        boardCopy = getBoardCopy(board)
+        # проверяем свободна ли ячейка
+        if isSpaceFree(board,i):
+            # делаем ход в копии игрового поля
+            makeMove(boardCopy,computerLetter,i)
+            # проверяем выиграет ИИ сделав этот ход
+            if isWinner(boardCopy,computerLetter):
+                # если сделав ход ИИ выигрывает, возвращаем ход
+                return i
+
+    # теперь проверим, есть ли ход, который может сделать
+    # человек и выиграть
+    for i in range(1,10):
+        # делаем копию игрового поля
+        boardCopy = getBoardCopy(board)
+        # проверяем свободна ли ячейка
+        if isSpaceFree(board,i):
+            # делаем ход в копии игрового поля
+            makeMove(boardCopy,playerLetter,i)
+            # проверяем выиграет человек сделав этот ход
+            if isWinner(boardCopy,playerLetter):
+                # если сделав ход человек выигрывает, делаем ход 
+                # туда, чтобы блокировать ход человека
+                return i
+
+    # если нет ходов приводящих к победе компьютера или человека 
+    # пытаемся занять один из улов, если есть свободные
+    move = chooseRandomMoveFromList(board,[1,3,7,9])
+    if move != None:
+        return move
+
+    # усли углы заняты, пробуем занять центр, если он свободен
+    if isSpaceFree(board,5):
+        return 5
+
+    # делаем ход по одной из сторон
+    return chooseRandomMoveFromList(board,[2,4,6,8])
+
+# последняя функция, которая проверяет не заполнено ли все 
+# игровое поле, приводящее к ничьей
+def isBoardFull(board):
+    # возвращает True, если все клетки на игровом заняты. 
+    # В противном случае возвращает False
+    for i in range(1,10):
+        if isSpaceFree(board,i):
+            return False
+    return True
+
 
 # ********************************************************
 # ОСНОВНОЕ ТЕЛО ПРОГРАММЫ
 # ********************************************************
 
-#board = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
-board = [' ']*10
-mL = [1,3,7,9]
-displayBoard(board)
-hod = chooseRandomMoveFromList(board,mL)
-print(hod)
-board[1] = 'X'
-board[3] = 'X'
-board[7] = 'X'
-board[9] = 'X'
-displayBoard(board)
-hod = chooseRandomMoveFromList(board,mL)
-print(hod)
+print('Игра "КРЕСТИКИ-НОЛИКИ"')
+
+while True:
+    # Перезагрузка игрового поля
+    theBoard = [' ']*10
+
+    # определяем символы у компьютера и человека
+    plaerLetter, computerLetter = inputPlayerLetter()
+
+    # щпределяем кто ходит первым и выводим сообщение об этом на экран
+    turn = whoGoesFirst()
+    print(''+turn+' ходит первым.')
+
+    # создадим переменную, которая будет True, пока игра не закончилась
+    gameIsPlaying = True
+
+    # запускаем игру
+    while gameIsPlaying:
+        # проверяем чей ход
+        if turn == 'Человек':
+            # ход человека
+            # покажем игровое поле
+            displayBoard(theBoard)
+            # принимаем от человека ход
+            move = getPlayerMove(theBoard)
+            # делаем принятый ход
+            makeMove(theBoard,plaerLetter,move)
+
+            # проверяем не выиграл ли человек
+            if isWinner(theBoard,plaerLetter):
+                # если человек выиграл
+                # покажем игровое поле
+                displayBoard(theBoard)
+                # позравим человека
+                print('Поздравляю! Ты выиграл!')
+                # покажем, что игра закончилась 
+                # изменив переменную на False
+                gameIsPlaying = False
+            else:
+                # человек не выиграл, 
+                # проверим нет ли ничьей
+                if isBoardFull(theBoard):
+                    # все клетки заполнены - ничья 
+                    # покажеи игровое поле
+                    displayBoard(theBoard)
+                    # сообщим о ничьей
+                    print('Ничья!')
+                    # завершаем игру прерыванием цикла
+                    break
+                else:
+                    # нет ни победы, ни ничьей, 
+                    # можно передавать ход
+                    turn = 'Компьютер'
+        else:
+            # ход компьютера 
+            # получаем ход от ИИ
+            move = getComputerMove(theBoard,computerLetter)
+            # делаем полученный ъод
+            makeMove(theBoard,computerLetter,move)
+
+            # проверяем не выиграл ли ИИ
+            if isWinner(theBoard,computerLetter):
+                # если ИИ выиграл
+                # покажем игровое поле
+                displayBoard(theBoard)
+                # сообщим о проигрыше
+                print('ИИ был сильнее! Вы проиграли!')
+                # покажем, что игра закончилась 
+                # изменив переменную на False
+                gameIsPlaying = False
+            else:
+                # ИИ не выиграл, 
+                # проверим нет ли ничьей
+                if isBoardFull(theBoard):
+                    # все клетки заполнены - ничья 
+                    # покажеи игровое поле
+                    displayBoard(theBoard)
+                    # сообщим о ничьей
+                    print('Ничья!')
+                    # завершаем игру прерыванием цикла
+                    break
+                else:
+                    # нет ни победы, ни ничьей, 
+                    # можно передавать ход
+                    turn = 'Человек'
+
+    print('Сыграем еще раз? (да или нет)')
+    if not input().lower().startswith('д'):
+        break
