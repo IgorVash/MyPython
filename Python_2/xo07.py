@@ -92,6 +92,7 @@ def getPlayerMove(board):
 
 #board = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
 board = [' ']*10
+board[5] = 'O'
 displayBoard(board)
 m = getPlayerMove(board)
 makeMove(board,'X',m)

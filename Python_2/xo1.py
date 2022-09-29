@@ -20,38 +20,12 @@ def displayBoard(board):
     print('-+-+-')
     print(board[1]+'|'+board[2]+'|'+board[3])
 
-def inputPlayerLetter():
-    # предложение игроку ввести букву, которую он выбирает
-    letter = ''
-    while not (letter=='X' or letter=='O'):
-        print('''    Выберите "Х" или "О".
-    Для выбора введите соответственно "Х" или "О" 
-    на английской раскладке.''')
 
-        letter = input().upper()
-
-    if letter == 'X':
-        return ['X','O']
-    else:
-        return ['O','X']
-
-def whoGoesFirst():
-    # Случайным образом выбираем кто будет ходить первым
-    if random.randint(0,1) == 0:
-        return 'Компьютер'
-    else:
-        return 'Человек'
-
-def makeMove(board,letter,move):
-    board[move] = letter
 
 # ********************************************************
 # ОСНОВНОЕ ТЕЛО ПРОГРАММЫ
 # ********************************************************
 
-board = [' ']*10
-displayBoard(board)
-yach = input('Введите число от 1 до 9:   ')
-yach = int(yach)
-makeMove(board,'X',yach)
-displayBoard(board)
+bord = [' ']*10
+displayBoard(bord)
+displayBoard(['A','O',' ',' ','X',' ',' ','X',' ','O'])

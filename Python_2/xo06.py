@@ -85,10 +85,13 @@ def isSpaceFree(board,move):
 
 #board = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
 board = [' ']*10
-displayBoard(board)
-print(isWinner(board,'X'))
 board[7] = 'X'
 board[1] = 'X'
-move = input('Введите номер ячейки для проверки свободна ли она:   ')
-move = int(move)
-print(isSpaceFree(board,move))
+displayBoard(board)
+while True:
+    move = input('Введите номер ячейки для проверки свободна ли она:   ')
+    move = int(move)
+    print(isSpaceFree(board,move))
+    m = input('Продолжаем?   ')
+    if m == 'n':
+        break

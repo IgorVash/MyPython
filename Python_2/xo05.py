@@ -77,11 +77,10 @@ def getBoardCopy(board):
 
 #board = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
 board = [' ']*10
-displayBoard(board)
-print(isWinner(board,'X'))
 board[7] = 'X'
 board[1] = 'X'
 #print(isWinner(board,'X'))
+displayBoard(board)
 bC = getBoardCopy(board)
 bC[5] = 'X'
 displayBoard(board)

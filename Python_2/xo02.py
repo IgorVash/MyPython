@@ -35,17 +35,6 @@ def inputPlayerLetter():
     else:
         return ['O','X']
 
-def funk():
-    while True:
-        print('Введите Х или О на англ. раскладке.')
-        letter = input().upper()
-        if letter == 'X' or letter == 'O':
-            break
-    
-    if letter == 'X':
-        return ['X','O']
-    else:
-        return ['O','X']
 
 # ********************************************************
 # ОСНОВНОЕ ТЕЛО ПРОГРАММЫ

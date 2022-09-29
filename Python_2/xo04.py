@@ -72,8 +72,8 @@ def isWinner(bo,le):
 board = [' ']*10
 displayBoard(board)
 print(isWinner(board,'X'))
-board[7] = 'X'
-board[4] = 'X'
+board[9] = 'X'
+board[5] = 'X'
 board[1] = 'X'
 displayBoard(board)
 print(isWinner(board,'X'))

@@ -109,13 +109,17 @@ def chooseRandomMoveFromList(board,movesList):
 #board = [' ',' ',' ',' ',' ',' ',' ',' ',' ',' ']
 board = [' ']*10
 mL = [1,3,7,9]
-displayBoard(board)
-hod = chooseRandomMoveFromList(board,mL)
+
+hod = 3#chooseRandomMoveFromList(board,mL)
 print(hod)
+makeMove(board,'O',hod)
+displayBoard(board)
+
 board[1] = 'X'
-board[3] = 'X'
 board[7] = 'X'
 board[9] = 'X'
-displayBoard(board)
+
 hod = chooseRandomMoveFromList(board,mL)
 print(hod)
+makeMove(board,'O',hod)
+displayBoard(board)
