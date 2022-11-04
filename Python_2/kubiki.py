@@ -135,6 +135,8 @@ def proverkaBals(bG,bK):
         return False
     elif bK > bG:
         return False
+    elif bK == bG:
+        return False
     else:
         return True
 
@@ -188,12 +190,12 @@ while games:
 
         gk = proverkaBals(bG,bK)
 
-    if pris:
-        if bK > 21:
-            print('Поздравляю! Вы выиграли!')
-        elif bK > bG:
-            print('Увы! Вы проиграли!')
-        elif bK == bG:
-            print('Ничья!')
+#    if pris:
+    if bK > 21:
+        print('Поздравляю! Вы выиграли!')
+    elif bK > bG:
+        print('Увы! Вы проиграли!')
+    elif bK == bG:
+        print('Ничья!')
 
     games = playAgain()    
